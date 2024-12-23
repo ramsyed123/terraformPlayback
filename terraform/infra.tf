@@ -18,7 +18,7 @@ resource "aws_iam_policy" "example_policy" {
       {
         Action   = ["s3:ListBucket"],
         Effect   = "Allow",
-        Resource = [aws_s3_bucket.example_bucket.arn]
+        Resource = [aws_s3_bucket.pb_bucket.arn]
       }
     ]
   })
