@@ -25,11 +25,6 @@ resource "aws_iam_policy" "example_policy" {
   depends_on = [aws_s3_bucket.pb_bucket]
 }
 
-# List of instance names using count
-locals {
-  instance_names = ["count1instance", "count2instance"]
-}
-
 # EC2 instances with count and different names
 resource "aws_instance" "countinstance" {
   count = 2  
@@ -37,7 +32,7 @@ resource "aws_instance" "countinstance" {
   ami           = "ami-0e2c8caa4b6378d8c"  
   instance_type = "t2.micro"
   tags = {
-    Name = locals.instance_names[count.index]
+    Name = countinstance
   }
 }
 
