@@ -26,6 +26,13 @@ resource "aws_iam_policy" "example_policy" {
 }
 
 # EC2 instances with count and different names
+resource "aws_subnet" "pb_subnet" {
+  vpc_id            = "vpc-0583db093f5a193be"  
+  cidr_block        = "10.0.1.0/24"
+  availability_zone = "us-east-1a"  
+}
+
+
 resource "aws_instance" "countinstance" {
   count = 2  
 
