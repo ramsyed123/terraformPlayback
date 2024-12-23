@@ -25,7 +25,6 @@ resource "aws_iam_policy" "example_policy" {
   depends_on = [aws_s3_bucket.pb_bucket]
 }
 
-# EC2 instances with count and different names
 # Define VPC
 resource "aws_vpc" "count_vpc" {
   cidr_block = "10.0.0.0/16"  
@@ -38,18 +37,19 @@ resource "aws_subnet" "count_subnet" {
   availability_zone = "us-east-1a"  
 }
 
-
+# EC2 instances with count directly defined
 resource "aws_instance" "countinstance" {
   count = 2  
 
   ami           = "ami-0e2c8caa4b6378d8c"  
   instance_type = "t2.micro"
+  subnet_id     = aws_subnet.count_subnet.id  # Specify the subnet ID
   tags = {
-   Name = "countinstance-${count.index + 1}"
+    Name = "countinstance-${count.index + 1}"
   }
 }
 
-# List of instance names using for each expression
+# List of instance names using for_each expression
 variable "instance_names" {
   type    = list(string)
   default = ["foreachinstance1", "foreachinstance2"]  
@@ -61,9 +61,8 @@ resource "aws_instance" "foreachinstance" {
 
   ami           = "ami-0e2c8caa4b6378d8c" 
   instance_type = "t2.micro"
+  subnet_id     = aws_subnet.count_subnet.id  # Specify the subnet ID
   tags = {
     Name = each.key
   }
 }
-
-
