@@ -2,8 +2,9 @@ name: 'Terraform destroy'
 
 on:
   push:
-   
-  workflow_dispatch:
+    branches:
+      - main  
+  workflow_dispatch:  
 
 jobs:
   terraform:
@@ -25,8 +26,8 @@ jobs:
 
       - name: Terraform Init
         working-directory: ./terraform
-        run: terraform init     
+        run: terraform init
 
-      - name: Terraform destroy
+      - name: Terraform Destroy
         working-directory: ./terraform
         run: terraform destroy -auto-approve
