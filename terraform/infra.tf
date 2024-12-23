@@ -26,9 +26,15 @@ resource "aws_iam_policy" "example_policy" {
 }
 
 # EC2 instances with count and different names
-resource "aws_subnet" "pb_subnet" {
-  vpc_id            = "vpc-0583db093f5a193be"  
-  cidr_block        = "10.0.1.0/24"
+# Define VPC
+resource "aws_vpc" "count_vpc" {
+  cidr_block = "10.0.0.0/16"  
+}
+
+# Define a subnet within the VPC
+resource "aws_subnet" "count_subnet" {
+  vpc_id            = aws_vpc.count_vpc.id
+  cidr_block        = "10.0.1.0/24"  
   availability_zone = "us-east-1a"  
 }
 
